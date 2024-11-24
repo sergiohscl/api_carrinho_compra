@@ -432,9 +432,8 @@ class RemoveCarrinhoComprasAPIView(APIView):
                     status=status.HTTP_404_NOT_FOUND
                 )
 
-            # Restaura o estoque do produto
             try:
-                produto = Produto.objects.get(id=produto_key)
+                produto = Produto.objects.get(num_produto=produto_key)
             except Produto.DoesNotExist:
                 return Response(
                     {"detail": "Produto não encontrado no banco de dados."},
@@ -461,7 +460,7 @@ class RemoveCarrinhoComprasAPIView(APIView):
             carrinho.save()
 
             return Response(
-                {"detail": f"Item '{nome}' removido ou atualizado no carrinho com sucesso."}, # noqa E501
+                {"detail": f"Item '{nome}' removido e atualizado no carrinho com sucesso."}, # noqa E501
                 status=status.HTTP_200_OK
             )
 
